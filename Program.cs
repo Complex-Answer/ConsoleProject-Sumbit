@@ -10,6 +10,12 @@ namespace ConsoleProject_sumbit
     {
         static void Main(string[] args)
         {
+            Dice playerDice = new Dice();
+            //Player charictor = new Player(Console.ReadLine());
+
+            Slime slime = new Slime();
+            slime.Monsterdeath();
+           
         }
     }
 }
