@@ -9,15 +9,17 @@ namespace ConsoleProject_sumbit
     internal class Player
     {
         string name;
+        int Level;
         int Hp;
         int Att;
         int Def;
         int Gold;
         float Exp;
 
-        public Player(string Inputname) 
+        public Player(string Inputname)  //플레이어 생성시 이름을 입력받고 기본적인 스탯 제공
         {
             name = Inputname;
+            Level = 1;
             Hp = 50;
             Att = 10;
             Def = 8;
@@ -25,11 +27,8 @@ namespace ConsoleProject_sumbit
             Exp = 0;
             Console.Clear();
             Console.WriteLine($"{name} 캐릭터가 생성되었습니다");
+            Console.WriteLine($"레벨 : {Level} \n체력 : {Hp}");
         }
-
-
-
-
 
     }
 }

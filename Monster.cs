@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleProject_sumbit
 {
-    public class BasicMonster
+    public class BasicMonster //기본적인 몬스터의 스탯 클래스
     {
         string name;
         int att;

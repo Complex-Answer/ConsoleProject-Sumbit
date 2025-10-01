@@ -7,17 +7,17 @@ using System.Threading.Tasks;
 
 namespace ConsoleProject_sumbit
 {
-    public enum ItemType
+    public enum ItemType //아이템 장비를 검, 장패 ,갑옷으로 구분
     {
         Sword, Shield, Armor
     }
-    public class ItemStore
+    public class ItemStore //장비, 포션들을 살 수 있는 상속 부모 클래스
     {
         protected int Price;
         protected bool isBuy;
         protected bool isSell;
     }
-     class Item : ItemStore
+     class Item : ItemStore //장비의 스탯, 장착여부, 타입을 설정
     {
         string eqName;
         string eqInfo;
@@ -40,7 +40,7 @@ namespace ConsoleProject_sumbit
             isBuy = buy;
             isSell = sell;
         }
-        public override string ToString()
+        public override string ToString() //각 타입에 맞게 공격력과 방어력을 설정 및 출력
         {
             if (types == ItemType.Sword)
             {
@@ -78,15 +78,15 @@ namespace ConsoleProject_sumbit
             potionCount = count;
             potionType = type;
         }
-        public override string ToString()
+        public override string ToString() //포션 종류에 맞게 회복량 출력
         {
             if (potionType == PotionType.HealPotion)
             {
-                return $"{potionName} : 체력 회복량 {potionRecovery}";
+                return $"{potionName} : 체력 회복량 {potionRecovery} {potionCount}개";
             }
             else if (potionType == PotionType.ManaPotion)
             {
-                return $"{potionName} : 마나 회복량 {potionRecovery}";
+                return $"{potionName} : 마나 회복량 {potionRecovery} {potionCount}개";
             }
             else
             {

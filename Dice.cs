@@ -19,9 +19,5 @@ namespace ConsoleProject_sumbit
             Console.WriteLine($"주사위를 굴려 {rndDice}(이)가 나왔습니다");
         }
 
-
-
-
-
     }
 }
