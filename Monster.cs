@@ -40,11 +40,7 @@ namespace ConsoleProject_sumbit
             Hp = 0;
             DropExp = 8.5F;
             DropGold = 15;
-            
         }
        
-        
-
-
     }
 }

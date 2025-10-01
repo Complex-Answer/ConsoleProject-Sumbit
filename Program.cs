@@ -14,7 +14,9 @@ namespace ConsoleProject_sumbit
             //Player charictor = new Player(Console.ReadLine());
 
             Slime slime = new Slime();
-            slime.Monsterdeath();
+            Item item = new Item("강철 방패", " ",8,12,false,3500,ItemType.Shield,false,false);
+            Console.WriteLine(item.ToString());
+            //slime.Monsterdeath();
            
         }
     }
