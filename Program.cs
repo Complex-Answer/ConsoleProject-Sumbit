@@ -14,10 +14,20 @@ namespace ConsoleProject_sumbit
             //Player charictor = new Player(Console.ReadLine());
 
             Slime slime = new Slime();
-            Item item = new Item("강철 방패", " ",8,12,false,3500,ItemType.Shield,false,false);
-            Console.WriteLine(item.ToString());
+            //Console.WriteLine(item.ToString());
             //slime.Monsterdeath();
+            bool a = int.TryParse(Console.ReadLine(), out int b);
+            Inventory inventory = new Inventory();
+            inventory.ItemAdd(new Item("강철 방패", " ", 18, 0, false, 3500, ItemType.Shield, false, false));
+            inventory.ItemAdd(new Item("강철 검", " ", 8, 12, false, 4700, ItemType.Sword, false, false));
+            inventory.ItemAdd(new Item("강철 장검", " ", 25, 0, false, 7000, ItemType.Sword, false, false));
+            inventory.ItemAdd(new Item("강철 갑옷", " ", 0, 12, false, 3100, ItemType.Armor, false, false));
+            inventory.ItemRemove(b);
+            Console.WriteLine();
            
+
+            inventory.itemShow();
+
         }
     }
 }

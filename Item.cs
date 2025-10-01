@@ -7,17 +7,17 @@ using System.Threading.Tasks;
 
 namespace ConsoleProject_sumbit
 {
-    enum ItemType
+    public enum ItemType
     {
         Sword, Shield, Armor
     }
-    class ItemStore
+    public class ItemStore
     {
         protected int Price;
         protected bool isBuy;
         protected bool isSell;
     }
-    class Item : ItemStore
+     class Item : ItemStore
     {
         string eqName;
         string eqInfo;
@@ -63,14 +63,36 @@ namespace ConsoleProject_sumbit
     }
     enum PotionType
     {
-        HealPotion, Manapotion, LuckPotion
+        HealPotion, ManaPotion
     }
     class Potion : ItemStore
     {
         string potionName;
         int potionCount;
+        int potionRecovery;
         PotionType potionType;
-
+        public Potion(string name, int value, int count, PotionType type)
+        {
+            potionName = name;
+            potionRecovery = value;
+            potionCount = count;
+            potionType = type;
+        }
+        public override string ToString()
+        {
+            if (potionType == PotionType.HealPotion)
+            {
+                return $"{potionName} : 체력 회복량 {potionRecovery}";
+            }
+            else if (potionType == PotionType.ManaPotion)
+            {
+                return $"{potionName} : 마나 회복량 {potionRecovery}";
+            }
+            else
+            {
+                return "포션이 없습니다";
+            }
+        }
 
     }
 }
