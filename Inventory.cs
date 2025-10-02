@@ -50,8 +50,10 @@ namespace ConsoleProject_sumbit
         }
         public void ShowInventory()
         {
-            Console.WriteLine("현재 보유 중인 장비/포션 목록");
+            Console.WriteLine("현재 보유 중인 장비 목록");
             ItemShow();
+            Console.WriteLine("-----------------------------");
+            Console.WriteLine("현재 보유 중인 포션 목록");
             PotionShow();
         }
     }

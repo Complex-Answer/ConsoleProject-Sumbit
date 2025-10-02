@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
+using System.Runtime.CompilerServices;
 
 namespace ConsoleProject_sumbit
 {
@@ -11,10 +12,11 @@ namespace ConsoleProject_sumbit
     {
         static void Main(string[] args)
         {
-            DungeonManager dun = new DungeonManager();
-            dun.AddMonster();
+            
+       
             Console.WriteLine("캐릭터의 이름을 입력해주십시오");
             Player player = new Player(Console.ReadLine());
+            player.Attack();
 
             Console.WriteLine("다음으로 넘어가려면 스페이스바 또는 엔터키를 입력해주세요"); //아무 키로 하고싶었는데 어케함??
             while (true)
@@ -34,9 +36,12 @@ namespace ConsoleProject_sumbit
                         key = Console.ReadKey(true);
                         if (key.Key == ConsoleKey.Spacebar)
                         {
+                            DungeonManager dun = new DungeonManager();
+                            dun.AddMonster();
                             Console.Clear();
                             Console.WriteLine("던전 입장");
                             dun.EncounterMonster();
+                            
                         }
                         else if (key.Key == ConsoleKey.Escape)
                         {
@@ -50,7 +55,7 @@ namespace ConsoleProject_sumbit
                     }
 
 
-              
+
                 }
                 else
                 {
@@ -76,9 +81,9 @@ namespace ConsoleProject_sumbit
             //            //갈곳3
             //            break;
             //        }         
-                    
-                
-                
+
+
+
 
 
             //}
