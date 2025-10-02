@@ -11,6 +11,8 @@ namespace ConsoleProject_sumbit
     {
         static void Main(string[] args)
         {
+            DungeonManager dun = new DungeonManager();
+            dun.AddMonster();
             Console.WriteLine("캐릭터의 이름을 입력해주십시오");
             Player player = new Player(Console.ReadLine());
 
@@ -20,11 +22,11 @@ namespace ConsoleProject_sumbit
                 ConsoleKeyInfo key = Console.ReadKey(true);
                 if (key.Key == ConsoleKey.Spacebar || key.Key == ConsoleKey.Enter) //그래도 개?연성 있게 스페이스또는 엔터로 일단 유지
                 {
-                    Console.Clear();
-                    Console.WriteLine("환영합니다. 해당 게임은 던전에서 살아남아 어디까지 진행 되는지 가늠하는 테스트 게임입니다");
-                    Thread.Sleep(3000);
-                    Console.WriteLine("던전으로 입장하시면 패배할 때 까지 나오지 못하는 하드코어 로그라이크입니다");
-                    Thread.Sleep(3000);
+                    //Console.Clear();
+                    //Console.WriteLine("환영합니다. 해당 게임은 던전에서 살아남아 어디까지 진행 되는지 가늠하는 테스트 게임입니다");
+                    //Thread.Sleep(3000);
+                    //Console.WriteLine("던전으로 입장하시면 패배할 때 까지 나오지 못하는 하드코어 로그라이크입니다");
+                    //Thread.Sleep(3000);
                     Console.WriteLine("게임을 시작할 준비가 되셨다면 스페이스바를 눌러주세요");
                     Console.WriteLine("또는 게임을 종료하시려면 esc키를 눌러주세요");
                     while (true)
@@ -34,6 +36,7 @@ namespace ConsoleProject_sumbit
                         {
                             Console.Clear();
                             Console.WriteLine("던전 입장");
+                            dun.EncounterMonster();
                         }
                         else if (key.Key == ConsoleKey.Escape)
                         {

@@ -5,7 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace ConsoleProject_sumbit
-{
+{ 
+    
     public class BasicMonster //기본적인 몬스터의 스탯 클래스
     {
         string name;
@@ -37,9 +38,35 @@ namespace ConsoleProject_sumbit
             Name = "슬라임";
             Att = 5;
             Def = 12;
-            Hp = 0;
+            Hp = 50;
             DropExp = 8.5F;
             DropGold = 15;
+        }
+       
+    }
+    public class Golem : BasicMonster
+    {
+        public Golem()
+        {
+            Name = "골렘";
+            Att = 25;
+            Def = 40;
+            Hp = 200;
+            DropExp = 22.4f;
+            DropGold = 50;
+        }
+       
+    }
+    public class Skeleton : BasicMonster
+    {
+        public Skeleton()
+        {
+            Name = "해골 병사";
+            Att = 11;
+            Def = 8;
+            Hp = 90;
+            DropExp = 12.5F;
+            DropGold = 25;
         }
        
     }

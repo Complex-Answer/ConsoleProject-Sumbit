@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleProject_sumbit
 {
-    internal class Shop
+    class Shop
     {
     }
 }
