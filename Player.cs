@@ -6,23 +6,31 @@ using System.Threading.Tasks;
 
 namespace ConsoleProject_sumbit
 {
-    internal class Player
+    public class Player
     {
         string name;
+        public string PlayerName { get; set; }
         int Level;
         int MaxHp; //프로퍼티 
         int Hp; //프로퍼티
+        public int PlayerHp
+        {
+            get { return Hp; }
+            set { Hp = value; }
+        }
         int Att; //프로퍼티
         int Def; //프로퍼티
         int Gold; //외부에 노출을 시켜야됨 근데 노출시키기가 싫음
         double Exp; //프로퍼티
         double MaxExp; //프로퍼1티
 
+        
+
         public Player(string Inputname)  //플레이어 생성시 이름을 입력받고 기본적인 스탯 제공
         {
-            name = Inputname;
+            PlayerName = Inputname;
             Level = 1;
-            Hp = 50;
+            PlayerHp = 50;
             MaxHp = 50;
             Att = 5;
             Def = 3;
@@ -43,15 +51,15 @@ namespace ConsoleProject_sumbit
             Console.WriteLine("현재 골드 : " + Gold);
             Console.WriteLine("현재 경험치 : " + Exp + "/" + MaxExp);
         }
-        public void Attack() //플레이어 공격 메서드
+        public void Attack(MonsterBattle monster) //플레이어 공격 메서드
         {
-            Dice playerDice = new Dice();
-            int attackPower = Att +((int)playerDice.PlayerRollDice());
-            Console.WriteLine($"{name}이(가) {attackPower}만큼 공격했습니다");
+            monster.monsterTakenDamage(Att + (int)Dice.PlayerRollDice());
         }
-        public void Taken()
+        public void Taken(int damage)
         {
-
+            Hp = Hp - damage;
+            Console.WriteLine($"{PlayerName}이(가) {damage}만큼 피해를 입었습니다");
+            Console.WriteLine($"현재 체력 : {PlayerHp}");
         }
         public void LevelUP()
         {
@@ -74,6 +82,10 @@ namespace ConsoleProject_sumbit
 
             }
 
+        }
+        void GetExp(double exp)
+        {
+            Exp += exp;
         }
 
     }

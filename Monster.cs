@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Xml.Linq;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace ConsoleProject_sumbit
 {
@@ -26,22 +29,17 @@ namespace ConsoleProject_sumbit
     }
     public class MonsterBattle : BasicMonster
     {
-        public virtual void Monsterdeath() //만약 hp가 0이면 몬스터가 죽는 메세지를 출력
+        public virtual void Monsterdeath(BasicMonster basic) //만약 hp가 0이면 몬스터가 죽는 메세지를 출력
         {
-            if (Hp <= 0)
-            {
-                Console.WriteLine($"{Name}이(가) 쓰러졌습니다");
-                Console.WriteLine($"{DropExp} 경험치를 획득했습니다");
-                Console.WriteLine($"{DropGold} 골드를 획득했습니다");
-
-            }
         }
 
-        public virtual void MonsterAttack(BasicMonster basic)
+        public virtual void MonsterAttack(Player player)
         {
-            Console.WriteLine("이게 나오면 안됨");
-        } //몬스터가 공격하는 메서드
+        }
 
+        public virtual void monsterTakenDamage(int playerDamage) 
+        { 
+        }
 
     }
 
@@ -57,13 +55,25 @@ namespace ConsoleProject_sumbit
             DropExp = 8.5F;
             DropGold = 15;
         }
-        public override void MonsterAttack(BasicMonster baisc)
+        public override void MonsterAttack(Player player)
         {
-           
-            Dice monsterDice = new Dice();
-            int monsterAtt = Att * (int)monsterDice.EnemyRollDice();
-            Console.WriteLine($"{Name}이(가) {monsterAtt}공격력으로 공격했습니다");
 
+            player.Taken(Att + (int)Dice.EnemyRollDice());
+
+        }
+        public override void Monsterdeath(BasicMonster basic)
+        {
+
+            Console.WriteLine($"{Name}이(가) 쓰러졌습니다");
+            Console.WriteLine($"{DropExp} 경험치를 획득했습니다");
+            Console.WriteLine($"{DropGold} 골드를 획득했습니다");
+
+        }
+        public override void monsterTakenDamage(int playerDamage)
+        {
+            Hp = Hp - playerDamage;
+            Console.WriteLine($"{Name}에게 {playerDamage}만큼 피해를 입혔습니다");
+            Console.WriteLine($"현재 {Name} 체력 : {Hp}");
         }
 
     }
@@ -78,13 +88,23 @@ namespace ConsoleProject_sumbit
             DropExp = 22.4f;
             DropGold = 50;
         }
-        public override void MonsterAttack(BasicMonster baisc)
+        public override void MonsterAttack(Player player)
+        {
+            player.Taken(Att + (int)Dice.EnemyRollDice());
+        }
+        public override void Monsterdeath(BasicMonster basic)
         {
 
-            Dice monsterDice = new Dice();
-            int monsterAtt = Att * (int)monsterDice.EnemyRollDice();
-            Console.WriteLine($"{Name}이(가) {monsterAtt}공격력으로 공격했습니다");
+            Console.WriteLine($"{Name}이(가) 쓰러졌습니다");
+            Console.WriteLine($"{DropExp} 경험치를 획득했습니다");
+            Console.WriteLine($"{DropGold} 골드를 획득했습니다");
 
+        }
+        public override void monsterTakenDamage(int playerDamage)
+        {
+            Hp = Hp - playerDamage;
+            Console.WriteLine($"{Name}에게 {playerDamage}만큼 피해를 입혔습니다");
+            Console.WriteLine($"현재 {Name} 체력 : {Hp}");
         }
 
     }
@@ -99,13 +119,26 @@ namespace ConsoleProject_sumbit
             DropExp = 12.5F;
             DropGold = 25;
         }
-        public override void MonsterAttack(BasicMonster baisc)
+        public override void MonsterAttack(Player player)
         {
 
-            Dice monsterDice = new Dice();
-            int monsterAtt = Att * (int)monsterDice.EnemyRollDice();
-            Console.WriteLine($"{Name}이(가) {monsterAtt}공격력으로 공격했습니다");
+            player.Taken(Att + (int)Dice.EnemyRollDice());
 
+        }
+        public override void Monsterdeath(BasicMonster basic)
+        {
+
+            Console.WriteLine($"{Name}이(가) 쓰러졌습니다");
+            Console.WriteLine($"{DropExp} 경험치를 획득했습니다");
+            Console.WriteLine($"{DropGold} 골드를 획득했습니다");
+
+        }
+
+        public override void monsterTakenDamage(int playerDamage)
+        {
+            Hp = Hp - playerDamage;
+            Console.WriteLine($"{Name}에게 {playerDamage}만큼 피해를 입혔습니다");
+            Console.WriteLine($"현재 {Name} 체력 : {Hp}");
         }
 
     }
