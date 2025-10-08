@@ -46,6 +46,7 @@
     <Compile Include="Battle.cs" />
     <Compile Include="Dice.cs" />
     <Compile Include="DungeonManager.cs" />
+    <Compile Include="EquipManger.cs" />
     <Compile Include="Inventory.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="Monster.cs" />

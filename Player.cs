@@ -8,23 +8,48 @@ namespace ConsoleProject_sumbit
 {
     public class Player
     {
-        string name;
-        public string PlayerName { get; set; }
-        int Level;
-        int MaxHp; //프로퍼티 
-        int Hp; //프로퍼티
-        public int PlayerHp
+        static string name;
+        static public string PlayerName { get; set; }
+        static int Level;
+        static int MaxHp; //프로퍼티 
+        static int Hp; //프로퍼티
+        static int Mp;
+         int MaxMp;
+        static public int PlayerMaxHp
+        {
+            get; set;
+        }
+         
+        static public int PlayerHp
         {
             get { return Hp; }
             set { Hp = value; }
         }
-        int Att; //프로퍼티
-        int Def; //프로퍼티
-        int Gold; //외부에 노출을 시켜야됨 근데 노출시키기가 싫음
-        double Exp; //프로퍼티
-        double MaxExp; //프로퍼1티
+        static public int PlayerMp
+        {
+            get { return Mp; }
+            set { Mp = value; }
+        }
+        static int Att; 
+        static public int PlayerAtt
+        {
+            get; set;
+        }//프로퍼티
+        static int Def;
+        static public int PlayerDef
+        {
+            get; set;
+        }//프로퍼티
+         int gold;
+         public int Gold
+        {
+            get { return gold; }
+            set { gold = value; }
+        }//외부에 노출을 시켜야됨 근데 노출시키기가 싫음
+        static double Exp; //프로퍼티
+        static double MaxExp; //프로퍼1티
 
-        
+
 
         public Player(string Inputname)  //플레이어 생성시 이름을 입력받고 기본적인 스탯 제공
         {
@@ -32,9 +57,11 @@ namespace ConsoleProject_sumbit
             Level = 1;
             PlayerHp = 50;
             MaxHp = 50;
+            PlayerMp = 30;
+            MaxMp = 30;
             Att = 5;
             Def = 3;
-            Gold = 0;
+            Gold = 500;
             Exp = 0;
             MaxExp = 60;
             Console.Clear();
@@ -59,7 +86,11 @@ namespace ConsoleProject_sumbit
         {
             Hp = Hp - damage;
             Console.WriteLine($"{PlayerName}이(가) {damage}만큼 피해를 입었습니다");
-            Console.WriteLine($"현재 체력 : {PlayerHp}");
+            if (Hp <= 0)
+            {
+                Hp = 0;
+            }
+            Console.WriteLine($"현재 {PlayerName} 체력 : {PlayerHp}");
         }
         public void LevelUP()
         {
@@ -67,6 +98,7 @@ namespace ConsoleProject_sumbit
             {
                 Level++;
                 Console.WriteLine("레벨이 올랐습니다");
+                Console.WriteLine($"현재 레벨 : {Level}");
                 Att += 2;
                 Def += 2;
                 MaxHp += 50;
@@ -83,9 +115,13 @@ namespace ConsoleProject_sumbit
             }
 
         }
-        void GetExp(double exp)
+        public void GetExp(double exp)
         {
             Exp += exp;
+        }
+        public void GetGold(int gold)
+        {
+            Gold += gold;
         }
 
     }
