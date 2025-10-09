@@ -71,8 +71,12 @@ namespace ConsoleProject_sumbit
         }
         public override void monsterTakenDamage(int playerDamage)
         {
-            Hp = Hp - playerDamage;
-            Console.WriteLine($"{Name}에게 {playerDamage}만큼 피해를 입혔습니다");
+            Hp = Hp - playerDamage-Def;
+            Console.WriteLine($"{Name}에게 {playerDamage-Def}만큼 피해를 입혔습니다");
+            if (Hp <= 0)
+            {
+                Hp = 0;
+            }
             Console.WriteLine($"현재 {Name} 체력 : {Hp}");
         }
 
@@ -102,8 +106,12 @@ namespace ConsoleProject_sumbit
         }
         public override void monsterTakenDamage(int playerDamage)
         {
-            Hp = Hp - playerDamage;
-            Console.WriteLine($"{Name}에게 {playerDamage}만큼 피해를 입혔습니다");
+            Hp = Hp - playerDamage - Def;
+            Console.WriteLine($"{Name}에게 {playerDamage - Def}만큼 피해를 입혔습니다");
+            if (Hp <= 0)
+            {
+                Hp = 0;
+            }
             Console.WriteLine($"현재 {Name} 체력 : {Hp}");
         }
 
@@ -136,8 +144,8 @@ namespace ConsoleProject_sumbit
 
         public override void monsterTakenDamage(int playerDamage)
         {
-            Hp = Hp - playerDamage;
-            Console.WriteLine($"{Name}에게 {playerDamage}만큼 피해를 입혔습니다");
+            Hp = Hp - playerDamage - Def;
+            Console.WriteLine($"{Name}에게 {playerDamage - Def}만큼 피해를 입혔습니다");
             if (Hp <= 0)
             {
                 Hp = 0;
