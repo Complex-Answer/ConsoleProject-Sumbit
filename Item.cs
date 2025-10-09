@@ -28,7 +28,7 @@ namespace ConsoleProject_sumbit
         public int SellPrice
         {
             get { return sellPrice; }
-            set { sellPrice = value; }
+            set { sellPrice = (int)(price*0.7); }
         }
         protected bool isBuy;
         public bool IsBuy
@@ -61,7 +61,7 @@ namespace ConsoleProject_sumbit
             eqName = name;
             Att = att;
             Price = price;
-            SellPrice = (int)(price * 0.7);
+           
             
             isEq = false;
             types = type;
@@ -95,7 +95,7 @@ namespace ConsoleProject_sumbit
             Att = att;
             Def = def;
             Price = price;
-            SellPrice = (int)(price * 0.7);
+            
            
             isEq = false;
             types = type;
@@ -126,7 +126,7 @@ namespace ConsoleProject_sumbit
             Def = def;
             MaxHp = addHp;
             Price = price;
-            SellPrice = (int)(price * 0.7);
+            
             isEq = false;
             types = type;
         }
@@ -141,7 +141,7 @@ namespace ConsoleProject_sumbit
     }
     class Potion : Item
     {
-        Player player;
+        
         string potionName;
         int potionCount;
         int potionRecovery;
@@ -152,7 +152,7 @@ namespace ConsoleProject_sumbit
             potionRecovery = value;
             potionCount = count;
             Price = price;
-            SellPrice = (int)(price * 0.7);
+           
             potionType = type;
         }
         public void Potions() //포션 종류에 맞게 회복량 출력
@@ -170,19 +170,19 @@ namespace ConsoleProject_sumbit
                 Console.WriteLine("포션이 없습니다");
             }
         }
-        public void PotionUse(Potion potion)
+        public void PotionUse(Potion potion, ref Player player)
         {
             Console.Write($"{potion.potionName}을 사용했습니다.");
             if (potionType == PotionType.HealPotion)
             { 
                 Console.WriteLine($" {potion.potionRecovery}만큼 체력을 회복했습니다");
-                Player.PlayerHp += potion.potionRecovery;
+                player.PlayerHp += potion.potionRecovery;
                 potion.potionCount--;
             }
             else if (potionType == PotionType.ManaPotion)
             {
                 Console.WriteLine($"{potion.potionRecovery}만큼 마나를 회복했습니다");
-                Player.PlayerMp += potion.potionRecovery;
+                player.PlayerMp += potion.potionRecovery;
                 potion.potionCount--;
             }
             else if (potionCount <= 0) 

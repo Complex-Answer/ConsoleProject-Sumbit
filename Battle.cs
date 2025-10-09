@@ -10,7 +10,8 @@ namespace ConsoleProject_sumbit
     class Battle
     {
         Random rnd = new Random(); //랜덤으로 만들어낼 상수 하나 만들어주고
-       protected List<MonsterBattle> monsters = new List<MonsterBattle>();//자식 클래스를 배열로 만들 준비
+        protected List<MonsterBattle> monsters = new List<MonsterBattle>();//자식 클래스를 배열로 만들 준비
+        Potion potion;
         public void AddMonster() // 여러 몬스터를 추가하는 배열
         {
             monsters.Add(new Slime());
@@ -20,10 +21,11 @@ namespace ConsoleProject_sumbit
         public void BattleMonster(ref Player player)
         {
             AddMonster();
-            while (true)
+            bool game = true;
+            while (game)
             {
                 Console.WriteLine("던전을 탐색중입니다...");
-                //Thread.Sleep(3000);
+                Thread.Sleep(2000);
                 
                 int a = rnd.Next(0, monsters.Count);
                 Console.WriteLine(monsters[a].Name + "(이)가 나타났습니다!"); //랜덤 상수을 인덱스로 받아 이름을 출력하는 장치
@@ -33,7 +35,11 @@ namespace ConsoleProject_sumbit
                 string input = Console.ReadLine();
                 if (input == "1")
                 {
-                    Fight(player);
+                    Fight(ref player);
+                    if(player.PlayerHp <= 0)
+                    {
+                        game = false;
+                    }
                 }
                 else if (input == "2")
                 {
@@ -47,8 +53,8 @@ namespace ConsoleProject_sumbit
                     else
                     {
                         Console.WriteLine("도망칠때 기습을 당했습니다...\n현재 체력의 10%데미지를 입습니다.");
-                        Player.PlayerHp -= (int)(Player.PlayerHp * 0.1);
-                        Console.WriteLine($"현재 체력 : {Player.PlayerHp}");
+                        player.PlayerHp -= (int)(player.PlayerHp * 0.1);
+                        Console.WriteLine($"현재 체력 : {player.PlayerHp}");
 
                         break;
                     }
@@ -60,26 +66,81 @@ namespace ConsoleProject_sumbit
             }
 
         }
-        public void Fight(Player player)
+        public void Fight(ref Player player)
         {
-            
+            bool game = true;
             int a = rnd.Next(0, monsters.Count);
-            while (monsters[a].Hp > 0) //몬스터와 공방을 반복적으로 실행. Hp가 0이하가 될 때 까지
+            while (monsters[a].Hp > 0 && game) //몬스터와 공방을 반복적으로 실행. Hp가 0이하가 될 때 까지
             {
-                player.Attack(monsters[a]);
+                Console.WriteLine("행동을 입력해주세요");
+                Console.WriteLine("A. 싸운다\tB. 포션 사용\tC. 도망친다");
+                ConsoleKeyInfo battleKey = Console.ReadKey(true);
+                switch (battleKey.Key)
+                {
+                    case ConsoleKey.A:
+                        {
+                        player.Attack(monsters[a]);
+                        break;
+                        }
+                    case ConsoleKey.B:
+                        {
+                        Inventory.PotionShow();
+                        Console.WriteLine("사용할 포션을 선택해주세요");
+                        int.TryParse(Console.ReadLine(), out int b);
+                        if (b <= Inventory.potionInventory.Count)
+                        {
+                        potion.PotionUse(Inventory.potionInventory[b],ref player);
+                        }
+                        else
+                        {
+                            Console.WriteLine("해당 칸은 없습니다");
+                        }
+                            break;
+                        }
+                    case ConsoleKey.C:
+                        {
+                        Random rnd = new Random();
+                            int rand = rnd.Next(0, 101);
+                            if (rand <= 40)
+                            {
+                                Console.WriteLine("무사히 도망쳤습니다");
+                                game = false;
+                                break;
+                            }
+                            else
+                            {
+                                Console.WriteLine("도망칠때 기습을 당했습니다...\n현재 체력의 10%데미지를 입습니다.");
+                                player.PlayerHp -= (int)(player.PlayerHp * 0.1);
+                                Console.WriteLine($"현재 체력 : {player.PlayerHp}");
+                                game = false;
+                                break;
+                            }
+                }
+                    default:
+                        {
+                            Console.WriteLine("다시 입력해주세요");
+                            continue;
+                        }
+                }
                 Console.WriteLine();
                 if (monsters[a].Hp <= 0) //hp가 0이면 몬스터데스 함수를 호출해 결과를 출력함
                 {
                     monsters[a].Hp = 0;
                     monsters[a].Monsterdeath(monsters[a]);
+                    player.GetGold(monsters[a].DropGold);
+                    player.GetExp(monsters[a].DropExp);
+                    if (player.Exp >= player.MaxExp)
+                        player.LevelUP();
                     break;
                 }
                 monsters[a].MonsterAttack(player);
+                Thread.Sleep(1500);
                 Console.WriteLine();
-                if (Player.PlayerHp <= 0)
+                if (player.PlayerHp <= 0)
                 {
                     Console.WriteLine("사망하셨습니다");
-                    break;
+                    
+                    return;
                 }
 
                

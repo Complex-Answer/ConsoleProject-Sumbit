@@ -8,35 +8,35 @@ namespace ConsoleProject_sumbit
 {
     public class Player
     {
-        static string name;
-        static public string PlayerName { get; set; }
-        static int Level;
+         string name;
+         public string PlayerName { get; set; }
+         int Level;
         static int MaxHp; //프로퍼티 
-        static int Hp; //프로퍼티
-        static int Mp;
+         int Hp; //프로퍼티
+         int Mp;
          int MaxMp;
         static public int PlayerMaxHp
         {
             get; set;
         }
          
-        static public int PlayerHp
+         public int PlayerHp
         {
             get { return Hp; }
             set { Hp = value; }
         }
-        static public int PlayerMp
+         public int PlayerMp
         {
             get { return Mp; }
             set { Mp = value; }
         }
-        static int Att; 
-        static public int PlayerAtt
+         int Att; 
+         public int PlayerAtt
         {
             get; set;
         }//프로퍼티
-        static int Def;
-        static public int PlayerDef
+         int Def;
+         public int PlayerDef
         {
             get; set;
         }//프로퍼티
@@ -46,8 +46,17 @@ namespace ConsoleProject_sumbit
             get { return gold; }
             set { gold = value; }
         }//외부에 노출을 시켜야됨 근데 노출시키기가 싫음
-        static double Exp; //프로퍼티
-        static double MaxExp; //프로퍼1티
+         double exp;
+        public double Exp{
+            get { return exp; }
+            set { exp = value; }
+        }//프로퍼티
+        static double maxExp;
+        public double MaxExp
+        {
+            get { return maxExp; }
+            set { maxExp = value; }
+        }
 
 
 
@@ -65,7 +74,7 @@ namespace ConsoleProject_sumbit
             Exp = 0;
             MaxExp = 60;
             Console.Clear();
-            Console.WriteLine($"{name} 캐릭터가 생성되었습니다");
+            Console.WriteLine($"{PlayerName} 캐릭터가 생성되었습니다");
 
         }
         public void CharInfo()

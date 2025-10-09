@@ -62,6 +62,7 @@ namespace ConsoleProject_sumbit
             }
             Console.WriteLine("----------------------------------");
         }
+        
         static public void ShowInventory()
         {
             ItemShow();
