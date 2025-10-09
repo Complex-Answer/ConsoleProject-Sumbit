@@ -93,8 +93,8 @@ namespace ConsoleProject_sumbit
         }
         public void Taken(int damage)
         {
-            Hp = Hp - damage;
-            Console.WriteLine($"{PlayerName}이(가) {damage}만큼 피해를 입었습니다");
+            Hp = Hp - damage-PlayerDef;
+            Console.WriteLine($"{PlayerName}이(가) {damage- PlayerDef}만큼 피해를 입었습니다");
             if (Hp <= 0)
             {
                 Hp = 0;
