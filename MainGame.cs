@@ -26,18 +26,19 @@ namespace ConsoleProject_sumbit
                 ConsoleKeyInfo key = Console.ReadKey(true);
                 if (key.Key == ConsoleKey.Spacebar || key.Key == ConsoleKey.Enter) //그래도 스페이스또는 엔터로 유지
                 {
+                            shop.ShopSetting();
                     Console.Clear();
                     Console.WriteLine("환영합니다. 해당 게임은 던전에서 살아남아 어디까지 진행 되는지 가늠하는 테스트 게임입니다");
                     Thread.Sleep(3000);
                     Console.WriteLine("게임을 시작할 준비가 되셨다면 스페이스바를 눌러주세요");
                     Console.WriteLine("또는 게임을 종료하시려면 esc키를 눌러주세요");
+                    key = Console.ReadKey(true);
                     while (true)
                     {
-                        key = Console.ReadKey(true);
                         if (key.Key == ConsoleKey.Spacebar)
                         {
                             Console.Clear();
-                            Console.WriteLine("1. 던전\t2. 상점\t 3.장비창\t 4.종료");
+                            Console.WriteLine("1.던전  2. 상점  3.장비창  4.캐릭터 정보  5.종료");
                             int.TryParse(Console.ReadLine(), out int num);
                             switch (num)
                             {
@@ -48,7 +49,6 @@ namespace ConsoleProject_sumbit
                                     }
                                 case 2:
                                     {
-                                        shop.ShopSetting();
                                         shop.ShopManger(ref player, inven);
                                         break;
                                     }
@@ -59,19 +59,27 @@ namespace ConsoleProject_sumbit
                                         break;
                                     }
                                 case 4:
+                                    {
+                                        player.CharInfo();
+                                        break;
+                                    }
+                                case 5:
+                                    Environment.Exit(0);
                                     return;
                                 default:
-                                    Console.WriteLine("1~4까지의 숫자만 입력해주세요");
+                                    Console.WriteLine("1~5까지의 숫자만 입력해주세요");
+                                    Thread.Sleep(500);
                                     break;
                             }
                         }
                         else if (key.Key == ConsoleKey.Escape)
                         {
-                            return;
+                            Environment.Exit(0);
                         }
                         else
                         {
                             Console.WriteLine("시작하시려면 스페이스바를 눌러주세요");
+                            key = Console.ReadKey(true);
                             continue;
                         }
                     }

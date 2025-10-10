@@ -56,9 +56,11 @@ namespace ConsoleProject_sumbit
         static public void PotionShow() //보유중인 아이템 출력
         {
             Console.WriteLine("----------------------------------");
+                int a = 0;
             foreach(var i in potionInventory)
             {
-                i.Potions();
+                Console.Write(a+1+ ". "); i.Potions();
+                a++;
             }
             Console.WriteLine("----------------------------------");
         }

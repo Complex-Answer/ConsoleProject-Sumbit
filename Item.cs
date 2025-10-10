@@ -49,10 +49,11 @@ namespace ConsoleProject_sumbit
      class Sword : Item //장비의 스탯, 장착여부, 타입을 설정
     {
        
-        int Att;
+        static int Att;
         static public int SwordAtt
         {
-            get; set;
+            get { return Att; }
+            set { Att = value; }
         }
        
 
@@ -61,8 +62,6 @@ namespace ConsoleProject_sumbit
             eqName = name;
             Att = att;
             Price = price;
-           
-            
             isEq = false;
             types = type;
         }
@@ -77,15 +76,17 @@ namespace ConsoleProject_sumbit
      class Shiled : Item //장비의 스탯, 장착여부, 타입을 설정
     {
         
-        int Att;
+        static int Att;
         static public int ShiledAtt
         {
-            get; set;
+            get { return Att; }
+            set { Att = value; }
         }
-        int Def;
+        static int Def;
         static public int ShiledDef
         {
-            get; set;
+            get { return Def; }
+            set { Def = value; }
         }
 
 
@@ -108,15 +109,17 @@ namespace ConsoleProject_sumbit
      class Armor : Item //장비의 스탯, 장착여부, 타입을 설정
     {
        
-        int MaxHp;
+        static int MaxHp;
         static public int ArmorMaxHP
         {
-            get; set;
+            get { return MaxHp; }
+            set { MaxHp = value; }
         }
-        int Def;
+        static int Def;
         static public int ArmorDef
         {
-            get; set;
+            get { return Def; }
+            set { Def = value; }
         }
 
 
@@ -143,12 +146,16 @@ namespace ConsoleProject_sumbit
     {
         
         string potionName;
-        int potionCount;
+        public string PotionName
+        {
+            get; set;
+        }
+        static int potionCount;
         int potionRecovery;
-        PotionType potionType;
+        static PotionType potionType;
         public Potion(string name, int value,int price, int count, PotionType type)
         {
-            potionName = name;
+            PotionName = name;
             potionRecovery = value;
             potionCount = count;
             Price = price;
@@ -159,31 +166,31 @@ namespace ConsoleProject_sumbit
         {
             if (potionType == PotionType.HealPotion)
             {
-                Console.WriteLine($"{potionName} : 체력회복량 {potionRecovery} |{potionCount}개"); 
+                Console.WriteLine($"{PotionName} : 체력회복량 {potionRecovery}"); 
             }
             else if (potionType == PotionType.ManaPotion)
             {
-                Console.WriteLine($"{potionName} : 마나회복량 {potionRecovery} |{potionCount}개");
+                Console.WriteLine($"{PotionName} : 마나회복량 {potionRecovery}");
             }
             else
             {
                 Console.WriteLine("포션이 없습니다");
             }
         }
-        public void PotionUse(Potion potion, ref Player player)
+        static public void PotionUse(Potion potion, ref Player player)
         {
-            Console.Write($"{potion.potionName}을 사용했습니다.");
+            Console.Write($"{potion.PotionName}을 사용했습니다.");
             if (potionType == PotionType.HealPotion)
             { 
                 Console.WriteLine($" {potion.potionRecovery}만큼 체력을 회복했습니다");
                 player.PlayerHp += potion.potionRecovery;
-                potion.potionCount--;
+                Potion.potionCount--;
             }
             else if (potionType == PotionType.ManaPotion)
             {
                 Console.WriteLine($"{potion.potionRecovery}만큼 마나를 회복했습니다");
                 player.PlayerMp += potion.potionRecovery;
-                potion.potionCount--;
+                Potion.potionCount--;
             }
             else if (potionCount <= 0) 
             {

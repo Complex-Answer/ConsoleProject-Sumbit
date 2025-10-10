@@ -42,6 +42,7 @@ namespace ConsoleProject_sumbit
 
                     else if (num == 1)
                     {
+                        Console.WriteLine("해제하실 장비 번호를 입력해주세요");
                         int.TryParse(Console.ReadLine(), out int eqNum);
                         if (inventory[eqNum - 1].isEq == true)
                         {
@@ -89,6 +90,7 @@ namespace ConsoleProject_sumbit
                     }
                     else if (num2 == 1)
                     {
+                        Console.WriteLine("장착하실 장비 번호를 입력해주세요");
                         int.TryParse(Console.ReadLine(), out int eqNum);
                         if (inventory[eqNum - 1].isEq == false)
                         {
@@ -120,6 +122,7 @@ namespace ConsoleProject_sumbit
                     }
                     else if (num2 == 2)
                     {
+                        Console.WriteLine("해제하실 장비 번호를 입력해주세요");
                         int.TryParse(Console.ReadLine(), out int eqNum);
                         if (inventory[eqNum - 1].isEq == true)
                         {
@@ -147,7 +150,7 @@ namespace ConsoleProject_sumbit
                             Console.WriteLine("아이템을 장착하지 않았습니다");
                             continue;
                         }
-
+                        
                     }
                     else
                     {

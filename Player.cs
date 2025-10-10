@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace ConsoleProject_sumbit
 {
@@ -12,18 +13,25 @@ namespace ConsoleProject_sumbit
          public string PlayerName { get; set; }
          int Level;
         static int MaxHp; //프로퍼티 
-         int Hp; //프로퍼티
+         int Hp;
+       
          int Mp;
          int MaxMp;
         static public int PlayerMaxHp
         {
-            get; set;
+            get { return MaxHp; }
+            set { MaxHp = value; }
         }
          
          public int PlayerHp
         {
             get { return Hp; }
-            set { Hp = value; }
+            set {
+                if (Hp >= MaxHp)
+                {
+                    Hp = MaxHp;
+                } 
+                Hp = value; }
         }
          public int PlayerMp
         {
@@ -33,12 +41,14 @@ namespace ConsoleProject_sumbit
          int Att; 
          public int PlayerAtt
         {
-            get; set;
+            get { return Att; }
+            set {  Att = value; }
         }//프로퍼티
          int Def;
          public int PlayerDef
         {
-            get; set;
+            get { return Def; }
+            set {  Def = value; }
         }//프로퍼티
          int gold;
          public int Gold
@@ -49,7 +59,11 @@ namespace ConsoleProject_sumbit
          double exp;
         public double Exp{
             get { return exp; }
-            set { exp = value; }
+            set { if(exp >= MaxExp)
+                {
+                    exp = MaxExp;
+                }
+                exp = value; }
         }//프로퍼티
         static double maxExp;
         public double MaxExp
@@ -70,22 +84,27 @@ namespace ConsoleProject_sumbit
             MaxMp = 30;
             Att = 5;
             Def = 3;
-            Gold = 500;
+            Gold = 3000;
             Exp = 0;
-            MaxExp = 60;
+            MaxExp = 5;
             Console.Clear();
             Console.WriteLine($"{PlayerName} 캐릭터가 생성되었습니다");
 
         }
         public void CharInfo()
         {
-            Console.WriteLine("캐릭터 이름 : " + name);
+            Console.Clear();
+            Console.WriteLine("캐릭터 이름 : " + PlayerName);
             Console.WriteLine("레벨 : " + Level);
-            Console.WriteLine("현재 체력 : " + Hp + "/" + MaxHp);
-            Console.WriteLine("공격력 : " + Att);
-            Console.WriteLine("방어력 : " + Def);
+            Console.WriteLine("현재 체력 : " + PlayerHp + "/" + PlayerMaxHp);
+            Console.WriteLine("공격력 : " + PlayerAtt);
+            Console.WriteLine("방어력 : " + PlayerDef);
             Console.WriteLine("현재 골드 : " + Gold);
-            Console.WriteLine("현재 경험치 : " + Exp + "/" + MaxExp);
+            Console.WriteLine("현재 경험치 : " + (int)Exp + "/" + (int)MaxExp);
+            Console.WriteLine("---------------------------------------------------------");
+            Console.WriteLine("돌아가시려면 아무키나 입력해주세요");
+            Console.ReadKey();
+            return;
         }
         public void Attack(MonsterBattle monster) //플레이어 공격 메서드
         {
@@ -93,8 +112,14 @@ namespace ConsoleProject_sumbit
         }
         public void Taken(int damage)
         {
-            Hp = Hp - damage-PlayerDef;
-            Console.WriteLine($"{PlayerName}이(가) {damage- PlayerDef}만큼 피해를 입었습니다");
+            int take = damage - PlayerDef;
+            if (take <= 0)
+            {
+                take = 0;
+            }
+            Hp = Hp - take;
+
+            Console.WriteLine($"{PlayerName}이(가) {take}만큼 피해를 입었습니다");
             if (Hp <= 0)
             {
                 Hp = 0;
@@ -108,6 +133,7 @@ namespace ConsoleProject_sumbit
                 Level++;
                 Console.WriteLine("레벨이 올랐습니다");
                 Console.WriteLine($"현재 레벨 : {Level}");
+                Thread.Sleep(750);
                 Att += 2;
                 Def += 2;
                 MaxHp += 50;
@@ -119,7 +145,7 @@ namespace ConsoleProject_sumbit
                 {
                     Exp = 0;
                 }
-                MaxExp = (MaxExp * 1.5) + 30;
+                MaxExp = (MaxExp * 1.5) + 10;
 
             }
 

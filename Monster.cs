@@ -50,7 +50,7 @@ namespace ConsoleProject_sumbit
         {
             Name = "슬라임";
             Att = 5;
-            Def = 12;
+            Def = 1;
             Hp = 50;
             DropExp = 8.5F;
             DropGold = 15;
@@ -65,14 +65,21 @@ namespace ConsoleProject_sumbit
         {
 
             Console.WriteLine($"{Name}이(가) 쓰러졌습니다");
+            Thread.Sleep(500);
             Console.WriteLine($"{DropExp} 경험치를 획득했습니다");
+            Thread.Sleep(500);
             Console.WriteLine($"{DropGold} 골드를 획득했습니다");
-
+            Thread.Sleep(500);
         }
         public override void monsterTakenDamage(int playerDamage)
         {
+            int damage = playerDamage - Def;
+            if(damage - Def <= 0)
+            {
+                damage = 0;
+            }
             Hp = Hp - playerDamage-Def;
-            Console.WriteLine($"{Name}에게 {playerDamage-Def}만큼 피해를 입혔습니다");
+            Console.WriteLine($"{Name}에게 {damage - Def}만큼 피해를 입혔습니다");
             if (Hp <= 0)
             {
                 Hp = 0;
@@ -86,9 +93,9 @@ namespace ConsoleProject_sumbit
         public Golem()
         {
             Name = "골렘";
-            Att = 25;
-            Def = 40;
-            Hp = 200;
+            Att = 6;
+            Def = 1;
+            Hp = 60;
             DropExp = 22.4f;
             DropGold = 50;
         }
@@ -100,14 +107,22 @@ namespace ConsoleProject_sumbit
         {
 
             Console.WriteLine($"{Name}이(가) 쓰러졌습니다");
+            Thread.Sleep(500);
             Console.WriteLine($"{DropExp} 경험치를 획득했습니다");
+            Thread.Sleep(500);
             Console.WriteLine($"{DropGold} 골드를 획득했습니다");
+            Thread.Sleep(500);
 
         }
         public override void monsterTakenDamage(int playerDamage)
         {
+            int damage = playerDamage - Def;
+            if (damage - Def <= 0)
+            {
+                damage = 0;
+            }
             Hp = Hp - playerDamage - Def;
-            Console.WriteLine($"{Name}에게 {playerDamage - Def}만큼 피해를 입혔습니다");
+            Console.WriteLine($"{Name}에게 {damage - Def}만큼 피해를 입혔습니다");
             if (Hp <= 0)
             {
                 Hp = 0;
@@ -121,9 +136,9 @@ namespace ConsoleProject_sumbit
         public Skeleton()
         {
             Name = "해골 병사";
-            Att = 11;
-            Def = 8;
-            Hp = 90;
+            Att = 10;
+            Def = 1;
+            Hp = 30;
             DropExp = 12.5F;
             DropGold = 25;
         }
@@ -137,21 +152,29 @@ namespace ConsoleProject_sumbit
         {
 
             Console.WriteLine($"{Name}이(가) 쓰러졌습니다");
+            Thread.Sleep(500);
             Console.WriteLine($"{DropExp} 경험치를 획득했습니다");
+            Thread.Sleep(500);
             Console.WriteLine($"{DropGold} 골드를 획득했습니다");
+            Thread.Sleep(500);
 
         }
 
         public override void monsterTakenDamage(int playerDamage)
         {
+            int damage = playerDamage - Def;
+            if (damage - Def <= 0)
+            {
+                damage = 0;
+            }
             Hp = Hp - playerDamage - Def;
-            Console.WriteLine($"{Name}에게 {playerDamage - Def}만큼 피해를 입혔습니다");
+            Console.WriteLine($"{Name}에게 {damage - Def}만큼 피해를 입혔습니다");
             if (Hp <= 0)
             {
                 Hp = 0;
             }
             Console.WriteLine($"현재 {Name} 체력 : {Hp}");
-            
+
         }
 
     }

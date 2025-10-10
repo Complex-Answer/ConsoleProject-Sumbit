@@ -29,18 +29,35 @@ namespace ConsoleProject_sumbit
             {
                 Console.Write(a++ + " ");
                 item.Equipments();
-                Console.Write($"{item.Price}Gold\t");
-                Console.WriteLine(" ");
+                Console.Write($"{item.Price}Gold");
 
+                if (item.IsBuy == true)
+                {
+                    Console.WriteLine("   [구매완료]");
+                }
+                else
+                {
+                    Console.WriteLine(" ");
+                }
             }
-
+            
         }
         public void Rest(Player player)
         {
-            Console.WriteLine("최대체력의 30%를 회복합니다");
-            player.PlayerHp += (int)(Player.PlayerMaxHp * 0.3);
-            Thread.Sleep(1500);
-            Console.WriteLine("휴식을 취해 건강해졌다");
+            if (player.Gold < 500)
+            {
+                Console.WriteLine("골드가 부족합니다");
+                Thread.Sleep(500);
+            }
+            else
+            {
+                Console.WriteLine("최대체력의 30%를 회복합니다");
+                player.PlayerHp += (int)(Player.PlayerMaxHp * 0.3);
+                Thread.Sleep(1500);
+                Console.WriteLine("휴식을 취해 건강해졌다");
+                Thread.Sleep(2000);
+                player.Gold -= 500;
+            }
         }
         public void ViewPotionShop()
         {
@@ -51,7 +68,9 @@ namespace ConsoleProject_sumbit
                 Console.Write($"{potion.Price}Gold\t");
                 Console.WriteLine();
                 
+
             }
+            a = 1;
         }
         public void ShopManger(ref Player player, Inventory inven)
         {
@@ -63,66 +82,73 @@ namespace ConsoleProject_sumbit
                 Console.WriteLine($"보유골드 {player.Gold}");
                 Console.WriteLine("아이템 목록");
                 ViewShop();
-                for (int i = 0; i < shopItems.Count; i++)
-                {
-
-                    if (shopItems[i].IsBuy == true)
-                    {
-                        Console.WriteLine("[구매완료]");
-                    }
-                }
                 ViewPotionShop();
 
-                Console.WriteLine("0. 상점 나가기\n구매하실 물품의 번호를 입력해주세요");
-                Console.WriteLine($"{shopItems.Count+shopPotion.Count+1}. 휴식하기");
+                Console.WriteLine($"{shopItems.Count+shopPotion.Count+1}. 휴식하기\n500Gold");
+                Console.WriteLine("0. 상점 나가기");
+                Console.WriteLine("구매하실 물품의 번호를 입력해주세요");
                 Console.WriteLine("=========================================");
 
                 int.TryParse(Console.ReadLine(), out int buy);
+                int shops = shopItems.Count;
+                int potions = shopPotion.Count;
 
-                if(buy == 0)
+                if (buy == 0)
                 {
                     game = false;
+                    Console.WriteLine("스페이스바를 눌러주세요");
                 }
-                else if (buy > 0 && buy<=shopItems.Count+shopPotion.Count && shopItems[buy-1] != null && shopPotion[buy-shopItems.Count-1] != null)
+                else if (buy > 0 && buy <= shops + potions && buy<= shops)
                 {
-                    if (shopItems[buy - 1].IsBuy == false)
+                    if (shopItems[buy - 1] != null)
                     {
-                        if (player.Gold >= shopItems[buy - 1].Price)
-                        {
-                            shopItems[buy - 1].IsBuy = true;
-                            player.Gold -= shopItems[buy - 1].Price;
-                            Inventory.itemInventory.Add(shopItems[buy-1]);
-                            Console.WriteLine($"{shopItems[buy-1].eqName}을 구매했습니다");
 
-                        }
-                        else if (player.Gold < shopItems[buy - 1].Price)
-                        {
-                            Console.WriteLine("골드가 부족합니다");
-                            Thread.Sleep(500);
-                        }
-                    }
-                    else if(shopPotion[buy - shopItems.Count - 1].IsBuy == false)
-                    {
-                        if (player.Gold >= shopPotion[buy - shopItems.Count - 1].Price)
-                        {
-                            player.Gold -= shopPotion[buy - shopItems.Count - 1].Price;
-                            Inventory.itemInventory.Add(shopPotion[buy - shopItems.Count - 1]);
-                            Console.WriteLine($"{shopPotion[buy - shopItems.Count - 1].eqName}을 구매했습니다");
 
-                        }
-                        else if (player.Gold < shopPotion[buy - shopItems.Count - 1].Price)
+                        if (shopItems[buy - 1].IsBuy == false)
                         {
-                            Console.WriteLine("골드가 부족합니다");
-                            Thread.Sleep(500);
+                            if (player.Gold >= shopItems[buy - 1].Price)
+                            {
+                                shopItems[buy - 1].IsBuy = true;
+                                player.Gold -= shopItems[buy - 1].Price;
+                                Inventory.itemInventory.Add(shopItems[buy - 1]);
+                                Console.WriteLine($"{shopItems[buy - 1].eqName}을 구매했습니다");
+                                Thread.Sleep(500);
+
+                            }
+                            else if (player.Gold < shopItems[buy - 1].Price)
+                            {
+                                Console.WriteLine("골드가 부족합니다");
+                                Thread.Sleep(500);
+                            }
                         }
-                    }
-                    else if (shopItems[buy - 1].IsBuy == true)
-                    {
-                        Console.WriteLine("이미 구매한 상품입니다");
-                        Thread.Sleep(500);
                     }
                 }
-                else if (buy == shopItems.Count + shopPotion.Count + 1)
+                else if (buy > 0 && buy <= shops + potions)
+                {
+                    if (shopPotion[buy - shops - 1] != null)
+                    {
+
+
+                        if (shopPotion[buy - shops - 1].IsBuy == false)
+                        {
+                            if (player.Gold >= shopPotion[buy - shops - 1].Price)
+                            {
+                                player.Gold -= shopPotion[buy - shops - 1].Price;
+                                Inventory.potionInventory.Add(shopPotion[buy - shops - 1]);
+                                Console.WriteLine($"{shopPotion[buy - shops - 1].PotionName}을 구매했습니다");
+                                Thread.Sleep(500);
+
+                            }
+                            else if (player.Gold < shopPotion[buy - shops - 1].Price)
+                            {
+                                Console.WriteLine("골드가 부족합니다");
+                                Thread.Sleep(500);
+                            }
+                        }
+                    }
+                   
+                }
+                else if (buy == shops + potions + 1)
                 {
                     Rest(player);
                 }
